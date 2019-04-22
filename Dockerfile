@@ -23,6 +23,7 @@ RUN apt-get update && \
         libnghttp2-dev \
         libjpeg-dev \
         libpq-dev \
+        postgresql-client \
         wkhtmltopdf
 
 ###########################################################################
@@ -38,7 +39,6 @@ RUN docker-php-ext-install pdo \
         pcntl \
         opcache \
         pgsql \
-        postgresql-client \
         bcmath
 
 
