@@ -6,7 +6,8 @@ LABEL maintainer="peter <7061384@126.com>"
 # lib
 ###########################################################################
 
-RUN apt-get update && \
+RUN apt-get update
+RUN apt-get install --assume-yes apt-utils && \
     mkdir -p /usr/share/man/man1 && \
     mkdir -p /usr/share/man/man7 && \
     apt-get install -y --no-install-recommends \
@@ -14,6 +15,7 @@ RUN apt-get update && \
         vim \
         curl \
         libmemcached-dev \
+        libmcrypt-dev \
         wget \
         git \
         zip \
