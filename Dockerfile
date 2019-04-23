@@ -6,7 +6,8 @@ LABEL maintainer="peter <7061384@126.com>"
 # lib
 ###########################################################################
 
-RUN echo '' > /etc/apt/sources.list && \
+RUN cp -a /etc/apt/sources.list /etc/apt/sources.list.bak && \
+    echo '' > /etc/apt/sources.list && \
     echo 'deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib' >> /etc/apt/sources.list && \
     echo 'deb-src http://mirrors.aliyun.com/debian/ stretch main non-free contrib' >> /etc/apt/sources.list && \
     echo 'deb http://mirrors.aliyun.com/debian-security stretch/updates main' >> /etc/apt/sources.list && \
