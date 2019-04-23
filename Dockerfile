@@ -17,11 +17,11 @@ RUN cp -a /etc/apt/sources.list /etc/apt/sources.list.bak && \
     echo 'deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib' >> /etc/apt/sources.list && \
     echo 'deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib' >> /etc/apt/sources.list
 
-RUN apt-get update
+RUN apt-get update  
 RUN apt-get install --assume-yes apt-utils && \
     mkdir -p /usr/share/man/man1 && \
     mkdir -p /usr/share/man/man7 && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends --fix-missing\
         cron \
         vim \
         curl \
