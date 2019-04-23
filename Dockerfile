@@ -26,7 +26,6 @@ RUN apt-get install --assume-yes apt-utils && \
         vim \
         curl \
         libmemcached-dev \
-        libmcrypt-dev \
         wget \
         git \
         zip \
@@ -45,7 +44,6 @@ RUN apt-get install --assume-yes apt-utils && \
 
 RUN docker-php-ext-install pdo \
         pdo_mysql \
-        mcrypt \
         mbstring \
         zip \
         gd \
