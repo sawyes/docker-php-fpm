@@ -33,7 +33,7 @@ RUN apt-get install --assume-yes apt-utils \
         libnghttp2-dev \
         libjpeg-dev \
         libpq-dev \
-	libzip-dev \
+	    libzip-dev \
         postgresql-client \
         wkhtmltopdf
 
