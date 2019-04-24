@@ -38,7 +38,7 @@ RUN apt-get install --assume-yes apt-utils \
         wkhtmltopdf
 
 ###########################################################################
-# Mysqli Modifications:
+# php ext
 ###########################################################################
 
 RUN docker-php-ext-install pdo \

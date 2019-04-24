@@ -23,6 +23,7 @@ fi
 #alias l="ls -lF ${colorflag}"
 ### MEGA: I want l and la ti return hisdden files
 alias l="ls -laF ${colorflag}"
+alias ll="ls -la ${colorflag}"
 
 # List all files colorized in long format, including dot files
 alias la="ls -laF ${colorflag}"

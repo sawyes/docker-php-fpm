@@ -1,24 +1,25 @@
-FROM php:7.2-fpm
+FROM php:5.4-fpm
 
 LABEL maintainer="peter <7061384@126.com>"
 
+
 # Change application source from dl-cdn.alpinelinux.org to aliyun source
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY debian/9.x.stretch.source.list /etc/apt/sources.list
+COPY debian/8.x.jessie.source.list /etc/apt/sources.list
 
 RUN apt-get update --fix-missing -y \
     && apt-get upgrade -y
+
 
 ###########################################################################
 # lib
 ###########################################################################
 
-RUN apt-get install --assume-yes apt-utils \
-    && mkdir -p /usr/share/man/man1  \
-    && mkdir -p /usr/share/man/man7 \
-    && apt-get install -y --no-install-recommends --fix-missing \
-        cron \
-        vim \
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends && \
+    mkdir -p /usr/share/man/man1 && \
+    mkdir -p /usr/share/man/man7 && \
+    apt-get install -y --no-install-recommends --fix-missing \
         curl \
         libmemcached-dev \
         wget \
@@ -30,6 +31,8 @@ RUN apt-get install --assume-yes apt-utils \
         libnghttp2-dev \
         libjpeg-dev \
         libpq-dev \
+	libmcrypt-dev \
+	libpcre3-dev \
         postgresql-client \
         wkhtmltopdf
 
@@ -45,7 +48,8 @@ RUN docker-php-ext-install pdo \
         pcntl \
         opcache \
         pgsql \
-        bcmath
+        bcmath \
+	    mcrypt
 
 
 ###########################################################################
@@ -55,36 +59,6 @@ RUN docker-php-ext-install pdo \
 RUN curl --silent --show-error https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer &&\
     composer config -g repo.packagist composer https://packagist.laravel-china.org
 
-
-###########################################################################
-# Swoole:
-###########################################################################
-
-RUN wget https://github.com/redis/hiredis/archive/v0.13.3.tar.gz -O hiredis.tar.gz \
-    && mkdir -p hiredis \
-    && tar -xf hiredis.tar.gz -C hiredis --strip-components=1 \
-    && rm hiredis.tar.gz \
-    && ( \
-        cd hiredis \
-        && make -j$(nproc) \
-        && make install \
-        && ldconfig \
-    ) \
-    && rm -r hiredis
-
-RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.tar.gz \
-    && mkdir -p swoole \
-    && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
-    && rm swoole.tar.gz \
-    && ( \
-        cd swoole \
-        && phpize \
-        && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -r swoole \
-    && docker-php-ext-enable swoole
 
 
 ###########################################################################
