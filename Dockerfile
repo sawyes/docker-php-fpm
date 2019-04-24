@@ -27,11 +27,11 @@ RUN apt-get install --assume-yes apt-utils \
         wget \
         git \
         zip \
-        libfreetype6-dev \
         libz-dev \
         libssl-dev \
         libnghttp2-dev \
         libjpeg-dev \
+        libpng-dev \
         libpq-dev \
 	    libzip-dev \
         postgresql-client \
@@ -45,12 +45,19 @@ RUN docker-php-ext-install pdo \
         pdo_mysql \
         mbstring \
         zip \
-        gd \
         pcntl \
         opcache \
         pgsql \
         bcmath
 
+# gd extension
+# https://docs.docker.com/samples/library/php/#php-core-extensions
+RUN apt-get install -y \
+        libfreetype6-dev \
+        libjpeg62-turbo-dev \
+    && docker-php-ext-install -j$(nproc) iconv \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
 ###########################################################################
 # composer
