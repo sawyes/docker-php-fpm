@@ -2,26 +2,24 @@ FROM php:7.3-fpm
 
 LABEL maintainer="peter <7061384@126.com>"
 
+
+# Change application source from dl-cdn.alpinelinux.org to aliyun source
+RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
+COPY debian/9.x.stretch.source.list /etc/apt/sources.list \
+
+
+RUN apt-get clean \
+    && apt-get update --fix-missing -y \
+    && apt-get upgrade -y
+
 ###########################################################################
 # lib
 ###########################################################################
 
-RUN cp -a /etc/apt/sources.list /etc/apt/sources.list.bak && \
-    echo '' > /etc/apt/sources.list && \
-    echo 'deb http://mirrors.aliyun.com/debian/ stretch main non-free contrib' >> /etc/apt/sources.list && \
-    echo 'deb-src http://mirrors.aliyun.com/debian/ stretch main non-free contrib' >> /etc/apt/sources.list && \
-    echo 'deb http://mirrors.aliyun.com/debian-security stretch/updates main' >> /etc/apt/sources.list && \
-    echo 'deb-src http://mirrors.aliyun.com/debian-security stretch/updates main' >> /etc/apt/sources.list && \
-    echo 'deb http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib' >> /etc/apt/sources.list && \
-    echo 'deb-src http://mirrors.aliyun.com/debian/ stretch-updates main non-free contrib' >> /etc/apt/sources.list && \
-    echo 'deb http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib' >> /etc/apt/sources.list && \
-    echo 'deb-src http://mirrors.aliyun.com/debian/ stretch-backports main non-free contrib' >> /etc/apt/sources.list
-
-RUN apt-get clean && apt-get update --fix-missing -y && apt-get upgrade -y
-RUN apt-get install --assume-yes apt-utils && \
-    mkdir -p /usr/share/man/man1 && \
-    mkdir -p /usr/share/man/man7 && \
-    apt-get install -y --no-install-recommends --fix-missing\
+RUN apt-get install --assume-yes apt-utils \
+    && mkdir -p /usr/share/man/man1 \
+    && mkdir -p /usr/share/man/man7 \
+    && apt-get install -y --no-install-recommends --fix-missing\
         cron \
         vim \
         curl \
