@@ -1,12 +1,10 @@
-FROM php:7.3-fpm
+FROM php:7.1-fpm
 
 LABEL maintainer="peter <7061384@126.com>"
-
 
 # Change application source from dl-cdn.alpinelinux.org to aliyun source
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY debian/9.x.stretch.source.list /etc/apt/sources.list
-
 
 RUN apt-get clean \
     && apt-get update --fix-missing -y \
@@ -17,9 +15,9 @@ RUN apt-get clean \
 ###########################################################################
 
 RUN apt-get install --assume-yes apt-utils \
-    && mkdir -p /usr/share/man/man1 \
+    && mkdir -p /usr/share/man/man1  \
     && mkdir -p /usr/share/man/man7 \
-    && apt-get install -y --no-install-recommends --fix-missing\
+    && apt-get install -y --no-install-recommends --fix-missing \
         cron \
         vim \
         curl \
