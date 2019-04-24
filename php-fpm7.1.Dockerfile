@@ -6,7 +6,8 @@ LABEL maintainer="peter <7061384@126.com>"
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY debian/9.x.stretch.source.list /etc/apt/sources.list
 
-RUN apt-get update --fix-missing -y \
+RUN apt-get clean \
+    && apt-get update --fix-missing -y \
     && apt-get upgrade -y
 
 ###########################################################################
