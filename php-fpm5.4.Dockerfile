@@ -7,15 +7,11 @@ LABEL maintainer="peter <7061384@126.com>"
 RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
 COPY debian/8.x.jessie.source.list /etc/apt/sources.list
 
-RUN apt-get update --fix-missing -y \
-    && apt-get upgrade -y
-
-
 ###########################################################################
 # lib
 ###########################################################################
 
-RUN apt-get install -y --no-install-recommends && \
+RUN apt-get update && \
     mkdir -p /usr/share/man/man1 && \
     mkdir -p /usr/share/man/man7 && \
     apt-get install -y --no-install-recommends --fix-missing \
@@ -30,8 +26,8 @@ RUN apt-get install -y --no-install-recommends && \
         libnghttp2-dev \
         libjpeg-dev \
         libpq-dev \
-	libmcrypt-dev \
-	libpcre3-dev \
+        libmcrypt-dev \
+        libpcre3-dev \
         postgresql-client \
         wkhtmltopdf
 
@@ -45,10 +41,10 @@ RUN docker-php-ext-install pdo \
         zip \
         gd \
         pcntl \
-        opcache \
         pgsql \
         bcmath \
-	    mcrypt
+	    mcrypt \
+	    wkhtmltopdf
 
 
 ###########################################################################
