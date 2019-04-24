@@ -29,10 +29,14 @@ docker build -t 7061384/php-fpm .
 other php version
 
 ```
-docker build -f php-fpm7.1.Dockerfile -t 7061384/php-fpm:7.1 .
+docker build --no-cache -f php-fpm7.1.Dockerfile -t 7061384/php-fpm:7.1 .
 ```
 
-> --no-cache
+run image
+
+```
+docker run -it --rm 7061384/php-fpm:7.3 bash
+``` 
 
 ## configuration
 
