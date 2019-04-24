@@ -42,8 +42,7 @@ RUN docker-php-ext-install pdo \
         pcntl \
         pgsql \
         bcmath \
-	    mcrypt \
-	    wkhtmltopdf
+	    mcrypt
 
 
 ###########################################################################
