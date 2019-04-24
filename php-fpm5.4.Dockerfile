@@ -15,8 +15,7 @@ RUN apt-get update --fix-missing -y \
 # lib
 ###########################################################################
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends && \
+RUN apt-get install -y --no-install-recommends && \
     mkdir -p /usr/share/man/man1 && \
     mkdir -p /usr/share/man/man7 && \
     apt-get install -y --no-install-recommends --fix-missing \
