@@ -32,6 +32,8 @@ other php version
 docker build -f php-fpm7.1.Dockerfile -t 7061384/php-fpm:7.1 .
 ```
 
+> --no-cache
+
 ## configuration
 
 https://docs.docker.com/samples/library/php/#configuration
