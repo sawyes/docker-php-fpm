@@ -24,7 +24,6 @@ RUN apt-get install --assume-yes apt-utils \
         vim \
         curl \
         libmemcached-dev \
-        libmcrypt-dev \
         wget \
         git \
         zip \
@@ -34,6 +33,7 @@ RUN apt-get install --assume-yes apt-utils \
         libnghttp2-dev \
         libjpeg-dev \
         libpq-dev \
+	libzip-dev \
         postgresql-client \
         wkhtmltopdf
 
@@ -43,7 +43,6 @@ RUN apt-get install --assume-yes apt-utils \
 
 RUN docker-php-ext-install pdo \
         pdo_mysql \
-        mcrypt \
         mbstring \
         zip \
         gd \
@@ -91,29 +90,7 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.ta
     && rm -r swoole \
     && docker-php-ext-enable swoole
 
-
-###########################################################################
-# PHP Memcached:
-###########################################################################
-
-RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
-      curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/2.2.0.tar.gz"; \
-    else \
-      curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz"; \
-    fi \
-    && mkdir -p memcached \
-    && tar -C memcached -zxvf /tmp/memcached.tar.gz --strip 1 \
-    && ( \
-        cd memcached \
-        && phpize \
-        && ./configure \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -r memcached \
-    && rm /tmp/memcached.tar.gz \
-    && docker-php-ext-enable memcached
-
+# wrong install memcache
 
 # Clean up
 RUN apt-get clean && \
