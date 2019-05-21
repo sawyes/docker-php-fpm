@@ -102,10 +102,11 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.ta
 
 # Clean up
 RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/www/* && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm /var/log/lastlog /var/log/faillog && \
     apt-get autoremove
 
+RUN rm -fr /var/www/html
 
 ###########################################################################
 # User Aliases
