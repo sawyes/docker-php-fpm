@@ -21,6 +21,7 @@ RUN apt-get install --assume-yes apt-utils \
     && mkdir -p /usr/share/man/man7 \
     && apt-get install -y --no-install-recommends --fix-missing\
         cron \
+        rsync \
         openssh-client \
         vim \
         curl \

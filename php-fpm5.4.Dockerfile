@@ -16,6 +16,7 @@ RUN apt-get update && \
     mkdir -p /usr/share/man/man7 && \
     apt-get install -y --no-install-recommends --fix-missing \
         curl \
+        rsync \
         openssh-client \
         libmemcached-dev \
         wget \
