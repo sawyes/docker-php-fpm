@@ -117,10 +117,9 @@ RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
 
 # Clean up
 RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/www/* && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
     rm /var/log/lastlog /var/log/faillog && \
     apt-get autoremove
-
 
 ###########################################################################
 # User Aliases
@@ -133,6 +132,8 @@ RUN sed -i 's/\r//' /root/aliases.sh && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
     echo "source ~/aliases.sh" >> ~/.bashrc && \
 	echo "" >> ~/.bashrc
+
+RUN rm -fr /var/www/html
 
 WORKDIR /var/www
 
