@@ -113,6 +113,9 @@ RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
     && rm /tmp/memcached.tar.gz \
     && docker-php-ext-enable memcached
 
+###########################################################################
+# Xdebug
+###########################################################################
 RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz \
     && mkdir -p xdebug \
     && tar -xf xdebug.tar.gz -C xdebug --strip-components=1 \
