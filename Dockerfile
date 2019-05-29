@@ -99,6 +99,20 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.ta
     && rm -r swoole \
     && docker-php-ext-enable swoole
 
+RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz \
+    && mkdir -p xdebug \
+    && tar -xf xdebug.tar.gz -C xdebug --strip-components=1 \
+    && rm xdebug.tar.gz \
+    && ( \
+        cd xdebug \
+        && phpize \
+        && ./configure --enable-xdebug \
+        && make \
+        && make install \
+    ) \
+    && rm -r xdebug \
+    && docker-php-ext-enable xdebug
+
 # Clean up
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
