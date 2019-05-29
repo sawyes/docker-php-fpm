@@ -91,6 +91,11 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.ta
     && rm -r swoole \
     && docker-php-ext-enable swoole
 
+###########################################################################
+# xdebug
+###########################################################################
+RUN pecl install xdebug-2.6.0 && \
+    docker-php-ext-enable xdebug
 
 ###########################################################################
 # PHP Memcached:
