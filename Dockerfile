@@ -50,7 +50,6 @@ RUN docker-php-ext-install pdo \
         pcntl \
         opcache \
         pgsql \
-        xdebug \
         bcmath
 
 # gd extension
@@ -99,6 +98,9 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.ta
     ) \
     && rm -r swoole \
     && docker-php-ext-enable swoole
+
+RUN pecl install xdebug-2.6.0 && \
+    docker-php-ext-enable xdebug
 
 # wrong install memcache
 

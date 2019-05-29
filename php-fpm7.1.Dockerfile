@@ -50,7 +50,6 @@ RUN docker-php-ext-install pdo \
         pcntl \
         opcache \
         pgsql \
-        xdebug \
         bcmath
 
 
