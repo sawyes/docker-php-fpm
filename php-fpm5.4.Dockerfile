@@ -44,6 +44,7 @@ RUN docker-php-ext-install pdo \
         pcntl \
         pgsql \
         bcmath \
+        xdebug \
 	    mcrypt
 
 
