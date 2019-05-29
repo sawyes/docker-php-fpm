@@ -81,7 +81,7 @@ RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
 ###########################################################################
 # Xdebug
 ###########################################################################
-RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz \
+RUN wget https://github.com/xdebug/xdebug/archive/2.2.7.tar.gz -O xdebug.tar.gz \
     && mkdir -p xdebug \
     && tar -xf xdebug.tar.gz -C xdebug --strip-components=1 \
     && rm xdebug.tar.gz \
