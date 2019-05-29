@@ -116,6 +116,7 @@ RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
 
 ###########################################################################
 # Xdebug
+# Need a PHP version >= 7.0.0
 ###########################################################################
 RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz \
     && mkdir -p xdebug \

@@ -101,6 +101,7 @@ RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.ta
 
 ###########################################################################
 # Xdebug
+# Need a PHP version >= 7.0.0
 ###########################################################################
 RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz \
     && mkdir -p xdebug \
