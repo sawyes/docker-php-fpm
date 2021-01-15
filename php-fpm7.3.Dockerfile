@@ -133,19 +133,7 @@ RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz 
 # xlswriter
 # Need a PHP version >= 7.0.0
 ###########################################################################
-RUN wget https://github.com/viest/php-ext-xlswriter/archive/v1.3.7.tar.gz -O php-ext-xlswriter.tar.gz \
-    && mkdir -p php-ext-xlswriter \
-    && tar -xf php-ext-xlswriter.tar.gz -C php-ext-xlswriter --strip-components=1 \
-    && rm php-ext-xlswriter.tar.gz \
-    && ( \
-        cd php-ext-xlswriter \
-        && phpize \
-        && ./configure \
-        && make \
-        && make install \
-    ) \
-    && rm -r php-ext-xlswriter \
-    && docker-php-ext-enable php-ext-xlswriter
+RUN pecl install imagick xmlwriter mongo
 
 # Clean up
 RUN apt-get clean && \
