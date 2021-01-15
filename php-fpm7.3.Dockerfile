@@ -16,7 +16,7 @@ RUN apt-get clean \
 # lib
 ###########################################################################
 # apt-get install --assume-yes apt-utils
-RUN apt-get install --assume-yes apt-utils \
+RUN apt-get install apt-utils \
     && mkdir -p /usr/share/man/man1 \
     && mkdir -p /usr/share/man/man7 \
     && apt-get install -y --no-install-recommends --fix-missing\
