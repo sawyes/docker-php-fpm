@@ -2,23 +2,23 @@ FROM php:7.4-fpm
 
 LABEL maintainer="peter <7061384@126.com>"
 
+ENV DEBIAN_FRONTEND=noninteractive
 
-# Change application source from dl-cdn.alpinelinux.org to aliyun source
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY debian/9.x.stretch.source.list /etc/apt/sources.list
-
-
-RUN apt-get clean \
-    && apt-get update --fix-missing -y \
-    && apt-get upgrade -y
+RUN apt-get update && \
+    apt-get -y install \
+        gnupg2 && \
+    apt-key update && \
+    apt-get update
 
 ###########################################################################
 # lib
 ###########################################################################
 # apt-get install --assume-yes apt-utils
-RUN mkdir -p /usr/share/man/man1 \
-    && mkdir -p /usr/share/man/man7 \
-    && apt-get install -y --no-install-recommends --fix-missing\
+RUN apt-get install -y --no-install-recommends --fix-missing\
+        g++ \
+        imagemagick \
+        libcurl3-dev \
+        libicu-dev \
         cron \
         rsync \
         openssh-client \
@@ -29,12 +29,16 @@ RUN mkdir -p /usr/share/man/man1 \
         git \
         zip \
         libz-dev \
+        libcurl4-openssl-dev \
         libssl-dev \
         libnghttp2-dev \
         libjpeg-dev \
         libpng-dev \
         libpq-dev \
 	    libzip-dev \
+        default-mysql-client \
+        nano \
+        unzip \
         postgresql-client \
         wkhtmltopdf \
         zlib1g-dev
@@ -46,10 +50,13 @@ RUN mkdir -p /usr/share/man/man1 \
 RUN docker-php-ext-install pdo \
         pdo_mysql \
         mbstring \
+        exif \
         zip \
         pcntl \
         opcache \
-        pgsql \
+        pdo_pgsql \
+        curl \
+        intl \
         bcmath
 
 # gd extension
@@ -73,31 +80,31 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php -- --inst
 # Swoole:
 ###########################################################################
 
-RUN wget https://github.com/redis/hiredis/archive/v0.13.3.tar.gz -O hiredis.tar.gz \
-    && mkdir -p hiredis \
-    && tar -xf hiredis.tar.gz -C hiredis --strip-components=1 \
-    && rm hiredis.tar.gz \
-    && ( \
-        cd hiredis \
-        && make -j$(nproc) \
-        && make install \
-        && ldconfig \
-    ) \
-    && rm -r hiredis
+# RUN wget https://github.com/redis/hiredis/archive/v0.13.3.tar.gz -O hiredis.tar.gz \
+#     && mkdir -p hiredis \
+#     && tar -xf hiredis.tar.gz -C hiredis --strip-components=1 \
+#     && rm hiredis.tar.gz \
+#     && ( \
+#         cd hiredis \
+#         && make -j$(nproc) \
+#         && make install \
+#         && ldconfig \
+#     ) \
+#     && rm -r hiredis
 
-RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.tar.gz \
-    && mkdir -p swoole \
-    && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
-    && rm swoole.tar.gz \
-    && ( \
-        cd swoole \
-        && phpize \
-        && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -r swoole \
-    && docker-php-ext-enable swoole
+# RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.tar.gz \
+#     && mkdir -p swoole \
+#     && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
+#     && rm swoole.tar.gz \
+#     && ( \
+#         cd swoole \
+#         && phpize \
+#         && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
+#         && make -j$(nproc) \
+#         && make install \
+#     ) \
+#     && rm -r swoole \
+#     && docker-php-ext-enable swoole
 
 ###########################################################################
 # Xdebug
@@ -121,19 +128,7 @@ RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz 
 # xlswriter
 # Need a PHP version >= 7.0.0
 ###########################################################################
-RUN wget https://github.com/viest/php-ext-xlswriter/archive/v1.3.7.tar.gz -O php-ext-xlswriter.tar.gz \
-    && mkdir -p php-ext-xlswriter \
-    && tar -xf php-ext-xlswriter.tar.gz -C php-ext-xlswriter --strip-components=1 \
-    && rm php-ext-xlswriter.tar.gz \
-    && ( \
-        cd php-ext-xlswriter \
-        && phpize \
-        && ./configure \
-        && make \
-        && make install \
-    ) \
-    && rm -r php-ext-xlswriter \
-    && docker-php-ext-enable php-ext-xlswriter
+RUN pecl install imagick xmlwriter mongo
 
 # Clean up
 RUN apt-get clean && \
