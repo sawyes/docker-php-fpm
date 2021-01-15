@@ -10,14 +10,14 @@ COPY debian/9.x.stretch.source.list /etc/apt/sources.list
 
 RUN apt-get clean \
     && apt-get update --fix-missing -y \
-    && apt-get upgrade -y
+    && apt-get install --assume-yes apt-utils
+    # && apt-get upgrade -y
 
 ###########################################################################
 # lib
 ###########################################################################
 # apt-get install --assume-yes apt-utils
-RUN apt-get install apt-utils \
-    && mkdir -p /usr/share/man/man1 \
+RUN mkdir -p /usr/share/man/man1 \
     && mkdir -p /usr/share/man/man7 \
     && apt-get install -y --no-install-recommends --fix-missing\
         cron \
