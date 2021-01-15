@@ -37,7 +37,7 @@ RUN mkdir -p /usr/share/man/man1 \
 	    libzip-dev \
         postgresql-client \
         wkhtmltopdf \
-        zlib
+        zlib1g-dev
 
 ###########################################################################
 # php ext

@@ -1,4 +1,4 @@
-FROM php:7.3-fpm
+FROM php:7.4-fpm
 
 LABEL maintainer="peter <7061384@126.com>"
 
@@ -15,9 +15,8 @@ RUN apt-get clean \
 ###########################################################################
 # lib
 ###########################################################################
-
-RUN apt-get install --assume-yes apt-utils \
-    && mkdir -p /usr/share/man/man1 \
+# apt-get install --assume-yes apt-utils
+RUN mkdir -p /usr/share/man/man1 \
     && mkdir -p /usr/share/man/man7 \
     && apt-get install -y --no-install-recommends --fix-missing\
         cron \
@@ -38,7 +37,7 @@ RUN apt-get install --assume-yes apt-utils \
 	    libzip-dev \
         postgresql-client \
         wkhtmltopdf \
-        zlib
+        zlib1g-dev
 
 ###########################################################################
 # php ext
