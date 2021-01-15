@@ -2,24 +2,24 @@ FROM php:7.3-fpm
 
 LABEL maintainer="peter <7061384@126.com>"
 
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Change application source from dl-cdn.alpinelinux.org to aliyun source
-RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
-COPY debian/9.x.stretch.source.list /etc/apt/sources.list
+# RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
+# COPY debian/9.x.stretch.source.list /etc/apt/sources.list
 
 
-RUN apt-get clean \
-    && apt-get update --fix-missing -y \
-    && apt-get install --assume-yes apt-utils
-    # && apt-get upgrade -y
+RUN apt-get update && \
+    apt-get -y install \
+        gnupg2 && \
+    apt-key update && \
+    apt-get update
 
 ###########################################################################
 # lib
 ###########################################################################
 # apt-get install --assume-yes apt-utils
-RUN mkdir -p /usr/share/man/man1 \
-    && mkdir -p /usr/share/man/man7 \
-    && apt-get install -y --no-install-recommends --fix-missing\
+RUN apt-get install -y --no-install-recommends --fix-missing\
         cron \
         rsync \
         openssh-client \
