@@ -16,7 +16,8 @@ RUN apt-get clean \
 # lib
 ###########################################################################
 # apt-get install --assume-yes apt-utils
-RUN mkdir -p /usr/share/man/man1 \
+RUN apt-get install --assume-yes apt-utils \
+    && mkdir -p /usr/share/man/man1 \
     && mkdir -p /usr/share/man/man7 \
     && apt-get install -y --no-install-recommends --fix-missing\
         cron \
