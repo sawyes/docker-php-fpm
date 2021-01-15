@@ -20,6 +20,10 @@ RUN apt-get update && \
 ###########################################################################
 # apt-get install --assume-yes apt-utils
 RUN apt-get install -y --no-install-recommends --fix-missing\
+        g++ \
+        imagemagick \
+        libcurl3-dev \
+        libicu-dev \
         cron \
         rsync \
         openssh-client \
@@ -30,12 +34,16 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
         git \
         zip \
         libz-dev \
+        libcurl4-openssl-dev \
         libssl-dev \
         libnghttp2-dev \
         libjpeg-dev \
         libpng-dev \
         libpq-dev \
 	    libzip-dev \
+        default-mysql-client \
+        nano \
+        unzip \
         postgresql-client \
         wkhtmltopdf \
         zlib1g-dev
@@ -47,10 +55,13 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
 RUN docker-php-ext-install pdo \
         pdo_mysql \
         mbstring \
+        exif \
         zip \
         pcntl \
         opcache \
-        pgsql \
+        pdo_pgsql \
+        curl \
+        intl \
         bcmath
 
 # gd extension
@@ -74,31 +85,31 @@ RUN curl --silent --show-error https://getcomposer.org/installer | php -- --inst
 # Swoole:
 ###########################################################################
 
-RUN wget https://github.com/redis/hiredis/archive/v0.13.3.tar.gz -O hiredis.tar.gz \
-    && mkdir -p hiredis \
-    && tar -xf hiredis.tar.gz -C hiredis --strip-components=1 \
-    && rm hiredis.tar.gz \
-    && ( \
-        cd hiredis \
-        && make -j$(nproc) \
-        && make install \
-        && ldconfig \
-    ) \
-    && rm -r hiredis
+# RUN wget https://github.com/redis/hiredis/archive/v0.13.3.tar.gz -O hiredis.tar.gz \
+#     && mkdir -p hiredis \
+#     && tar -xf hiredis.tar.gz -C hiredis --strip-components=1 \
+#     && rm hiredis.tar.gz \
+#     && ( \
+#         cd hiredis \
+#         && make -j$(nproc) \
+#         && make install \
+#         && ldconfig \
+#     ) \
+#     && rm -r hiredis
 
-RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.tar.gz \
-    && mkdir -p swoole \
-    && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
-    && rm swoole.tar.gz \
-    && ( \
-        cd swoole \
-        && phpize \
-        && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
-        && make -j$(nproc) \
-        && make install \
-    ) \
-    && rm -r swoole \
-    && docker-php-ext-enable swoole
+# RUN wget https://github.com/swoole/swoole-src/archive/v4.0.3.tar.gz -O swoole.tar.gz \
+#     && mkdir -p swoole \
+#     && tar -xf swoole.tar.gz -C swoole --strip-components=1 \
+#     && rm swoole.tar.gz \
+#     && ( \
+#         cd swoole \
+#         && phpize \
+#         && ./configure --enable-async-redis --enable-mysqlnd --enable-openssl --enable-http2 \
+#         && make -j$(nproc) \
+#         && make install \
+#     ) \
+#     && rm -r swoole \
+#     && docker-php-ext-enable swoole
 
 ###########################################################################
 # Xdebug
