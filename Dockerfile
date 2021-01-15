@@ -118,6 +118,10 @@ RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz 
     && rm -r xdebug \
     && docker-php-ext-enable xdebug
 
+###########################################################################
+# xlswriter
+# Need a PHP version >= 7.0.0
+###########################################################################
 RUN wget https://github.com/viest/php-ext-xlswriter/archive/v1.3.7.tar.gz -O php-ext-xlswriter.tar.gz \
     && mkdir -p php-ext-xlswriter \
     && tar -xf php-ext-xlswriter.tar.gz -C php-ext-xlswriter --strip-components=1 \
