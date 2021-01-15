@@ -41,6 +41,7 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
         unzip \
         postgresql-client \
         wkhtmltopdf \
+        libxml2 \
         zlib1g-dev
 
 ###########################################################################
