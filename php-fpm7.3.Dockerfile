@@ -4,11 +4,6 @@ LABEL maintainer="peter <7061384@126.com>"
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Change application source from dl-cdn.alpinelinux.org to aliyun source
-# RUN cp /etc/apt/sources.list /etc/apt/sources.list.bak
-# COPY debian/9.x.stretch.source.list /etc/apt/sources.list
-
-
 RUN apt-get update && \
     apt-get -y install \
         gnupg2 && \
