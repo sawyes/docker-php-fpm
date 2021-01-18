@@ -129,10 +129,8 @@ RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz 
 # xlswriter
 # Need a PHP version >= 7.0.0
 ###########################################################################
-RUN pecl install xlswriter mongo \
-    && docker-php-ext-enable \
-            xlswrite \
-            mongodb
+RUN pecl install xlswriter \
+    && docker-php-ext-enable xlswriter
 
 # Clean up
 RUN apt-get clean && \
