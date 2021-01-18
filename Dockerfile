@@ -48,6 +48,18 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
 # php ext
 ###########################################################################
 
+RUN https://github.com/kkos/oniguruma/archive/v6.9.4.tar.gz -O oniguruma.tar.gz \ 
+    && mkdir -p oniguruma \
+    && tar -xf oniguruma.tar.gz -C oniguruma --strip-components=1 \
+    && rm oniguruma.tar.gz \
+    && ( \
+        cd oniguruma \
+        && make -j$(nproc) \
+        && make install \
+        && ldconfig \
+    ) \
+    && rm -r oniguruma
+
 RUN docker-php-ext-install pdo \
         pdo_mysql \
         mbstring \
