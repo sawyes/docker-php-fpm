@@ -41,6 +41,7 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
         unzip \
         postgresql-client \
         wkhtmltopdf \
+        libxml2 \
         zlib1g-dev
 
 ###########################################################################
@@ -128,7 +129,8 @@ RUN wget https://github.com/xdebug/xdebug/archive/2.7.2.tar.gz -O xdebug.tar.gz 
 # xlswriter
 # Need a PHP version >= 7.0.0
 ###########################################################################
-RUN pecl install imagick xmlwriter mongo
+RUN pecl install xlswriter \
+    && docker-php-ext-enable xlswriter
 
 # Clean up
 RUN apt-get clean && \
