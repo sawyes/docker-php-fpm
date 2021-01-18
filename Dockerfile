@@ -45,11 +45,11 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
         zlib1g-dev
 
 ###########################################################################
-# php ext
+# php exts
 ###########################################################################
 
-RUN apt-get install -y libonig5 \
-    && https://github.com/kkos/oniguruma/archive/v6.9.6.tar.gz -O oniguruma.tar.gz \ 
+# mbstring support
+RUN wget https://github.com/kkos/oniguruma/archive/v6.9.6.tar.gz -O oniguruma.tar.gz \ 
     && mkdir -p oniguruma \
     && tar -xf oniguruma.tar.gz -C oniguruma --strip-components=1 \
     && rm oniguruma.tar.gz \
