@@ -55,9 +55,10 @@ RUN wget https://github.com/kkos/oniguruma/archive/v6.9.6.tar.gz -O oniguruma.ta
     && rm oniguruma.tar.gz \
     && ( \
         cd oniguruma \
-        && make -j$(nproc) \
-        && make install \
-        && ldconfig \
+        && phpize \
+        && ./configure \
+        && make \
+        && make install 
     ) \
     && rm -r oniguruma
 
