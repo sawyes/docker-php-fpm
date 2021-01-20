@@ -47,7 +47,8 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
 ###########################################################################
 # php exts
 ###########################################################################
-RUN wget https://github.com/kkos/oniguruma/archive/v6.9.4.tar.gz -O oniguruma.tar.gz  \
+RUN apt-get -y install autotools-dev m4 autoconf2.13 autobook autoconf-archive gnu-standards autoconf-doc libtool \
+    && wget https://github.com/kkos/oniguruma/archive/v6.9.4.tar.gz -O oniguruma.tar.gz  \
     && mkdir -p oniguruma \
     && tar -xf oniguruma.tar.gz -C oniguruma --strip-components=1 \
     && rm oniguruma.tar.gz \
