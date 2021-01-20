@@ -42,7 +42,7 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
         postgresql-client \
         wkhtmltopdf \
         libxml2 \
-        oniguruma-dev \
+        oniguruma-devel \
         zlib1g-dev
 
 ###########################################################################
