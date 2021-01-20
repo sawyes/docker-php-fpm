@@ -48,6 +48,19 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
 ###########################################################################
 # php exts
 ###########################################################################
+RUN wgethttps://github.com/kkos/oniguruma/archive/v6.9.4.tar.gz -O oniguruma.tar.gz  \
+    && mkdir -p oniguruma \
+    && tar -xf oniguruma.tar.gz -C oniguruma --strip-components=1 \
+    && rm oniguruma.tar.gz \
+    && ( \
+        cd oniguruma \
+        && ./autogen.sh \
+        && ./configure \
+        && make \
+        && make install \
+    ) \
+    && rm -r oniguruma
+    # && docker-php-ext-enable oniguruma
 
 RUN docker-php-ext-install pdo \
         pdo_mysql \
