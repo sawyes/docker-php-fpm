@@ -48,7 +48,7 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
 ###########################################################################
 # php exts
 ###########################################################################
-RUN wgethttps://github.com/kkos/oniguruma/archive/v6.9.4.tar.gz -O oniguruma.tar.gz  \
+RUN wget https://github.com/kkos/oniguruma/archive/v6.9.4.tar.gz -O oniguruma.tar.gz  \
     && mkdir -p oniguruma \
     && tar -xf oniguruma.tar.gz -C oniguruma --strip-components=1 \
     && rm oniguruma.tar.gz \
