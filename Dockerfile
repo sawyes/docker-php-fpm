@@ -42,25 +42,12 @@ RUN apt-get install -y --no-install-recommends --fix-missing\
         postgresql-client \
         wkhtmltopdf \
         libxml2 \
+        oniguruma-dev \
         zlib1g-dev
 
 ###########################################################################
 # php exts
 ###########################################################################
-
-# mbstring support
-RUN wget https://github.com/kkos/oniguruma/archive/v6.9.6.tar.gz -O oniguruma.tar.gz \ 
-    && mkdir -p oniguruma \
-    && tar -xf oniguruma.tar.gz -C oniguruma --strip-components=1 \
-    && rm oniguruma.tar.gz \
-    && ( \
-        cd oniguruma \
-        && phpize \
-        && ./configure \
-        && make \
-        && make install \
-    ) \
-    && rm -r oniguruma
 
 RUN docker-php-ext-install pdo \
         pdo_mysql \
